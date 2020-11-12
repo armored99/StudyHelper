@@ -163,8 +163,9 @@ public class QuestionActivity extends AppCompatActivity {
     }
     private void updateTime(int questionIndex){
         mCurrentQuestionIndex = questionIndex;
-        Question question = mQuestionList.get(mCurrentQuestionIndex);
-        question.setLastCorrectTime(System.currentTimeMillis());;
+        Question mQuestion = mQuestionList.get(mCurrentQuestionIndex);
+        mQuestion.setLastCorrectTime(System.currentTimeMillis());;
+        mStudyDb.questionDao().updateQuestion(mQuestion);
     }
     private void showTime(int questionIndex){
         mCurrentQuestionIndex = questionIndex;
@@ -220,6 +221,7 @@ public class QuestionActivity extends AppCompatActivity {
 
             // Add newly created question to the question list and show it
             mQuestionList.add(newQuestion);
+            //showQuestion(mQuestionList.size() - 1);
             Toast.makeText(this, R.string.question_added, Toast.LENGTH_SHORT).show();
             recreate();
         }
